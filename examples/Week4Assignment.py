@@ -38,30 +38,27 @@ STUDENT_ACCOUNT_STRUCT = [
 simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id='<your infura project id>')
 
 # import the accounts that you created in the week 2 assignment
-account1 = SimpleWeb3py.import_account('key', save_path='account1_secret.txt')
-account2 = SimpleWeb3py.import_account('key', save_path='account2_secret.txt')
-account3 = SimpleWeb3py.import_account('key', save_path='account3_secret.txt')
-account4 = SimpleWeb3py.import_account('key', save_path='account4_secret.txt')
-account5 = SimpleWeb3py.import_account('key', save_path='account5_secret.txt')
+account1 = SimpleWeb3py.import_account('key', secret_path='account1_secret.txt')
+account2 = SimpleWeb3py.import_account('key', secret_path='account2_secret.txt')
+account3 = SimpleWeb3py.import_account('key', secret_path='account3_secret.txt')
+account4 = SimpleWeb3py.import_account('mnemonic', secret_path='account4_secret.txt')
+account5 = SimpleWeb3py.import_account('mnemonic', secret_path='account5_secret.txt')
 
-# setup web3 to use the specified account when sending transactions
-simple_web3.initialize_web3(account1)
-
-print(f'account has {simple_web3.get_account_balance()} ether available')
+print(f'account has {simple_web3.get_address_balance()} ether available')
 
 contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
                                            contract_filepath=os.path.join('SolidityContracts', 'Week4Assignment.sol'),
                                            contract_name='Week4Assignment')
 
 # this will compile and deploy the contract and make it available to interact with
-contract.initialize()
+contract.initialize(account1)
 
 create_student_account(contract, 'student1', account2.address, 33, 'student1@uark.edu',  'Graduate', True)
 create_student_account(contract, 'student2', account3.address, 31, 'student2@uark.edu',  'Graduate', True)
 create_student_account(contract, 'student3', account4.address, 35, 'student3@uark.edu',  'Graduate', True)
 create_student_account(contract, 'student4', account5.address, 25, 'student4@uark.edu',  'Graduate', True)
 
-user_count = contract.call_function("userCount")
+user_count = contract.call_function('userCount')
 print(f'There are now {user_count} accounts!')
 
 # pick a random student to query and then delete
