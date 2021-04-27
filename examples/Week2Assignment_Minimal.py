@@ -1,10 +1,12 @@
-import SimpleWeb3py, time
+import SimpleWeb3py
+import time
+import os
 
 # initialize SimpleWeb3py
 simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id='<your infura project id>')
 
 # create a new account using a generated private key and save it to file
-account = SimpleWeb3py.create_new_account(save_path='my_private_key.txt')
+account = SimpleWeb3py.create_new_account(save_path='account1_secret.txt')
 
 # request ether from faucet.ropsten.be
 SimpleWeb3py.request_ether(account.address)
@@ -18,7 +20,7 @@ print(f'Account has {simple_web3.get_address_balance(account.address)} ether ava
 
 # create a contract object using an existing solidity smart contract
 contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
-                                           contract_filepath='SolidityContracts\\SimpleCoin.sol',
+                                           contract_filepath=os.path.join('SolidityContracts', 'SimpleCoin.sol'),
                                            contract_name='SimpleCoin',
                                            contract_constructors={'_initialSupply': 10000})
 

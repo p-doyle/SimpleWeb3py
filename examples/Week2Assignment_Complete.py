@@ -1,4 +1,6 @@
 import SimpleWeb3py
+import time
+import os
 
 # convenience function to execute the 'transfer' smart contract function to send
 #  SimpleCoins to an address and then output the Event data and check the account balance
@@ -15,7 +17,15 @@ def send_simplecoins(_contract, to_name, to_address, amount):
 
 simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id='<your infura project id>')
 
+# create a new account using a generated private key and save it to file
 account1 = SimpleWeb3py.create_new_account(save_path='account1_secret.txt')
+
+# request ether from faucet.ropsten.be
+SimpleWeb3py.request_ether(account1.address)
+
+# wait until we receive ether from the faucet (can take anywhere from 30 seconds to hours)
+while simple_web3.get_address_balance(account1.address) <= 0:
+    time.sleep(30)
 
 # create 2 accounts using a generated private key
 account2 = SimpleWeb3py.create_new_account(save_path='account2_secret.txt')
@@ -46,15 +56,15 @@ print(f'account1 has {account1_balance} Eth remaining!')
 # build a contract object
 # if you already have the compiled ABI and bytecode you can specify the path to them
 contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
-                                           abi_filepath='SolidityContracts\\SimpleCoinABI.json',
-                                           bytecode_filepath='SolidityContracts\\SimpleCoinBytecode.json',
+                                           abi_filepath=os.path.join('SolidityContracts', 'SimpleCoinABI.json'),
+                                           bytecode_filepath=os.path.join('SolidityContracts', 'SimpleCoinBytecode'),
                                            contract_constructors={'_initialSupply': 10000})
 
 # otherwise, if compiling yourself, specify the contract filepath and name
 #  as well as any constructor arguments (if any) defined by the contract
 '''
 contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
-                                           contract_filepath='SolidityContracts\\SimpleCoin.sol',
+                                           contract_filepath=os.path.join('SolidityContracts', 'SimpleCoin.sol'),,
                                            contract_name='SimpleCoin',
                                            contract_constructors={'_initialSupply': 10000})
 '''
