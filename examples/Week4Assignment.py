@@ -1,0 +1,90 @@
+import random
+import SimpleWeb3py
+
+# convenience function to execute the 'createAccount' smart contract function to create
+#  a new student account and then output the Event data
+def create_student_account(_contract, username, account_address, age, email_address,
+                           program_level, blockchain_track_enrolled):
+    print(f'Creating student account for {username}!')
+
+    student_account = {
+        'username': username,
+        'accountAddress': account_address,
+        'age': age,
+        'emailAddress': email_address,
+        'programLevel': program_level,
+        'blockchainTrackEnrolled': blockchain_track_enrolled
+    }
+    event_data = _contract.execute_function('createAccount', event_name='AccountCreated', param_dict=student_account)
+    print(f'createAccount Event Data: {event_data}')
+
+    print(f'Account for {username} created!')
+
+
+# define the StudentAccount struct as it exists in the contract so that we can
+#  create a dictionary when querying the studentAccounts array
+# this could theoretically be pulled from the ABI but not easily
+STUDENT_ACCOUNT_STRUCT = [
+    'username',
+    'accountAddress',
+    'age',
+    'emailAddress',
+    'programLevel',
+    'blockchainTrackEnrolled'
+]
+
+
+simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id='<your infura project id>')
+
+account1 = SimpleWeb3py.create_new_account(save_path='account1_secret.txt')
+account2 = SimpleWeb3py.create_new_account(save_path='account2_secret.txt')
+account3 = SimpleWeb3py.create_new_account(save_path='account3_secret.txt')
+
+# create 2 accounts using a mnemonic seed phrase
+account4 = SimpleWeb3py.create_new_account(use_mnemonic=True, save_path='account4_secret.txt')
+account5 = SimpleWeb3py.create_new_account(use_mnemonic=True, save_path='account5_secret.txt')
+
+# setup web3 to use the specified account when sending transactions
+simple_web3.initialize_web3(account1)
+
+print(f'account has {simple_web3.get_account_balance()} ether available')
+
+contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
+                                           contract_filepath='SolidityContracts\\Week4Assignment.sol',
+                                           contract_name='Week4Assignment')
+
+# this will compile and deploy the contract and make it available to interact with
+contract.initialize()
+
+create_student_account(contract, 'pdoyle', account2.address, 33, 'pdoyle@uark.edu',  'Graduate', True)
+create_student_account(contract, 'iwhite', account3.address, 31, 'iwhite@walton.uark.edu',  'Graduate', True)
+create_student_account(contract, 'kschoelz', account4.address, 35, 'kschoelz@walton.uark.edu',  'Graduate', True)
+create_student_account(contract, 'gbrown', account5.address, 25, 'gbrown@walton.uark.edu',  'Graduate', True)
+
+user_count = contract.call_function("userCount")
+print(f'There are now {user_count} accounts!')
+
+# pick a random student to query and then delete
+target_student_index = random.randint(0, user_count-1)
+
+# query the student account at specified index of the studentAccounts array
+# returned as a list; to make it easier to work with, convert it into a dictionary
+student_account_values = contract.call_function('studentAccounts', target_student_index)
+student_account_dict = dict(zip(STUDENT_ACCOUNT_STRUCT, student_account_values))
+print(f'student account at index 2 is {student_account_dict}')
+
+print(f'Deleting account for {student_account_dict["username"]}!')
+contract.execute_function('deleteAccount', param_dict=dict(index=target_student_index))
+
+print(f'Account for {student_account_dict["username"]} deleted! '
+      f'There are now {contract.call_function("userCount")} accounts!')
+
+# after deleting the account, check the values again
+# if it was deleted correctly, the values should have been reset to the default for the struct
+student_account_values = contract.call_function('studentAccounts', target_student_index)
+student_account_dict = dict(zip(STUDENT_ACCOUNT_STRUCT, student_account_values))
+print(f'student account at index {target_student_index} is {student_account_dict}')
+
+
+
+
