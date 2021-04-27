@@ -58,7 +58,7 @@ create_student_account(contract, 'student2', account3.address, 31, 'student2@uar
 create_student_account(contract, 'student3', account4.address, 35, 'student3@uark.edu',  'Graduate', True)
 create_student_account(contract, 'student4', account5.address, 25, 'student4@uark.edu',  'Graduate', True)
 
-user_count = contract.call_function('userCount')
+user_count = contract.call_function('studentCount')
 print(f'There are now {user_count} accounts!')
 
 # pick a random student to query and then delete
@@ -74,7 +74,7 @@ print(f'Deleting account for {student_account_dict["username"]}!')
 contract.execute_function('deleteAccount', param_dict=dict(index=target_student_index))
 
 print(f'Account for {student_account_dict["username"]} deleted! '
-      f'There are now {contract.call_function("userCount")} accounts!')
+      f'There are now {contract.call_function("studentCount")} accounts!')
 
 # after deleting the account, check the values again
 # if it was deleted correctly, the values should have been reset to the default for the struct
