@@ -156,8 +156,8 @@ class SimpleWeb3Contract(object):
             from vyper.cli.vyper_compile import compile_files
 
             output = compile_files(input_files=[self.contract_filepath], output_formats=['abi', 'bytecode'])
-            self.abi = output[contract_filename]['abi']
-            self.bytecode = output[contract_filename]['bytecode']
+            self.abi = output[self.contract_filepath]['abi']
+            self.bytecode = output[self.contract_filepath]['bytecode']
 
         # optionally save the ABI to file so that it can be re-used
         if self.abi_filepath:

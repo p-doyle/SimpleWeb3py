@@ -64,7 +64,7 @@ contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
 #  as well as any constructor arguments (if any) defined by the contract
 '''
 contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
-                                           contract_filepath=os.path.join('SolidityContracts', 'SimpleCoin.sol'),,
+                                           contract_filepath=os.path.join('SolidityContracts', 'SimpleCoin.sol'),
                                            contract_name='SimpleCoin',
                                            contract_constructors={'_initialSupply': 10000})
 '''
