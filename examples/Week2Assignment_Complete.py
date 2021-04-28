@@ -1,6 +1,11 @@
-import SimpleWeb3py
+import sys
 import time
 import os
+
+# add the parent folder so we can easily import the library
+sys.path.append('..')
+import SimpleWeb3py
+
 
 # convenience function to execute the 'transfer' smart contract function to send
 #  SimpleCoins to an address and then output the Event data and check the account balance

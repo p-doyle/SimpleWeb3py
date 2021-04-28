@@ -1,6 +1,10 @@
-import SimpleWeb3py
+import sys
 import time
 import os
+
+# add the parent folder so we can easily import the library
+sys.path.append('..')
+import SimpleWeb3py
 
 # initialize SimpleWeb3py
 simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id='<your infura project id>')

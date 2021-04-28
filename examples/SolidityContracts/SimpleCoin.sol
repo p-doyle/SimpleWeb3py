@@ -1,3 +1,5 @@
+pragma solidity =0.8.3;
+
 contract SimpleCoin {
    mapping (address => uint256) public coinBalance;
 

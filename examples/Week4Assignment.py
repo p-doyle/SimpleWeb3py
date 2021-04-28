@@ -1,6 +1,10 @@
+import sys
 import random
-import SimpleWeb3py
 import os
+
+# add the parent folder so we can easily import the library
+sys.path.append('..')
+import SimpleWeb3py
 
 # convenience function to execute the 'createAccount' smart contract function to create
 #  a new student account and then output the Event data
