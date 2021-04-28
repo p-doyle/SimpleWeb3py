@@ -52,9 +52,18 @@ account5 = SimpleWeb3py.import_account('mnemonic', secret_path='account5_secret.
 
 print(f'account has {simple_web3.get_address_balance()} ether available')
 
+# create a contract object using the provided ABI and bytecode compiled from Week4Assignment.sol
+contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
+                                           abi_filepath=os.path.join('SolidityContracts', 'Week4AssignmentABI.json'),
+                                           bytecode_filepath=os.path.join('SolidityContracts', 'Week4AssignmentBytecode'),
+                                           contract_name='Week4Assignment')
+
+# otherwise, if compiling yourself, specify the contract filepath and name
+'''
 contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
                                            contract_filepath=os.path.join('SolidityContracts', 'Week4Assignment.sol'),
                                            contract_name='Week4Assignment')
+'''
 
 # this will compile and deploy the contract and make it available to interact with
 contract.initialize(account1)

@@ -46,7 +46,7 @@ solc-select use 0.8.3
 <br/>
 
 ## How To
-Clone or download a zip of the repo then edit the examples to update the INFURA_PROJECT_ID variable with your Infura project id.  Then you can run the example. 
+Clone or download a zip of the repo then edit the examples to update the INFURA_PROJECT_ID variable with your Infura project id.  Then you can run the example.  By default, the examples use the pre-compiled ABI and bytecode from the Solidity contracts so a Solidity or Vyper compiler are not necessary. 
 
 ## Limitations
 Because this was designed to use with some class assignments, it is only setup to work with Infura.io and the Ropsten test network.  This could easily be changed however by editing SimpleWeb3py.py and modifying the SimpleWeb3's class __init__ to work with other providers and/or networks. 

@@ -24,11 +24,20 @@ while simple_web3.get_address_balance(account.address) <= 0:
 # check account balance
 print(f'Account has {simple_web3.get_address_balance(account.address)} ether available!')
 
-# create a contract object using an existing solidity smart contract
+# create a contract object using the provided ABI and bytecode compiled from SimpleCoin.sol
+contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
+                                           abi_filepath=os.path.join('SolidityContracts', 'SimpleCoinABI.json'),
+                                           bytecode_filepath=os.path.join('SolidityContracts', 'SimpleCoinBytecode'),
+                                           contract_constructors={'_initialSupply': 10000})
+
+# otherwise, if compiling yourself, specify the contract filepath and name
+#  as well as any constructor arguments (if any) defined by the contract
+'''
 contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
                                            contract_filepath=os.path.join('SolidityContracts', 'SimpleCoin.sol'),
                                            contract_name='SimpleCoin',
                                            contract_constructors={'_initialSupply': 10000})
+'''
 
 # compile and deploy the contract using our account
 contract.initialize(account)
