@@ -50,7 +50,7 @@ account3 = SimpleWeb3py.import_account('key', secret_path='account3_secret.txt')
 account4 = SimpleWeb3py.import_account('mnemonic', secret_path='account4_secret.txt')
 account5 = SimpleWeb3py.import_account('mnemonic', secret_path='account5_secret.txt')
 
-print(f'account has {simple_web3.get_address_balance()} ether available')
+print(f'account has {simple_web3.get_address_balance(account1.address)} ether available')
 
 # create a contract object using the provided ABI and bytecode compiled from Week4Assignment.sol
 contract = SimpleWeb3py.SimpleWeb3Contract(simple_web3,
