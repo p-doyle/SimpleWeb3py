@@ -1,6 +1,6 @@
 # SimpleWeb3py
 A wrapper around the Web3.py library that simplifies certain actions.  
-Built as part of a University of Arkansas Blockchain class project.  Designed to make it easier to complete some of the class homework assignments on the Ropsten test network using Web3.py instead of Remix and Metamask.  Also, re-creates some of the Solidity contracts with Vyper, because Python.
+Built as part of a University of Arkansas Blockchain class project.  Designed to make it easier to complete some of the class homework assignments on Ethereum's Ropsten test network using Web3.py instead of Remix and Metamask.  Also, re-creates some of the Solidity contracts with Vyper, because Python.
 
 
 ## Requirements
