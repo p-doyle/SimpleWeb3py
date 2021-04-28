@@ -6,6 +6,8 @@ import os
 sys.path.append('..')
 import SimpleWeb3py
 
+INFURA_PROJECT_ID = ''
+
 # convenience function to execute the 'createAccount' smart contract function to create
 #  a new student account and then output the Event data
 def create_student_account(_contract, username, account_address, age, email_address,
@@ -39,7 +41,7 @@ STUDENT_ACCOUNT_STRUCT = [
 ]
 
 
-simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id='<your infura project id>')
+simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id=INFURA_PROJECT_ID)
 
 # import the accounts that you created in the week 2 assignment
 account1 = SimpleWeb3py.import_account('key', secret_path='account1_secret.txt')

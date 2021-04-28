@@ -6,8 +6,10 @@ import os
 sys.path.append('..')
 import SimpleWeb3py
 
+INFURA_PROJECT_ID = ''
+
 # initialize SimpleWeb3py
-simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id='<your infura project id>')
+simple_web3 = SimpleWeb3py.SimpleWeb3(infura_project_id=INFURA_PROJECT_ID)
 
 # create a new account using a generated private key and save it to file
 account = SimpleWeb3py.create_new_account(save_path='account1_secret.txt')
