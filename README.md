@@ -1,6 +1,6 @@
 # SimpleWeb3py
 A wrapper around the Web3.py library that simplifies certain actions.  
-Built as part of a University of Arkansas Blockchain class project.  Designed to make it easier to complete some of the class homework assignments using Web3.py instead of Remix and Metamask.  Also, re-creates some of the Solidity contracts with Vyper, because Python.
+Built as part of a University of Arkansas Blockchain class project.  Designed to make it easier to complete some of the class homework assignments on the Ropsten test network using Web3.py instead of Remix and Metamask.  Also, re-creates some of the Solidity contracts with Vyper, because Python.
 
 
 ## Requirements
@@ -43,14 +43,13 @@ sudo pip3 install -U py-solc py-evm py-solc-x solc-select
 solc-select install 0.8.3
 solc-select use 0.8.3
 ```
-
-
 <br/>
-
-
 
 ## How To
 Clone or download a zip of the repo then edit the examples to update the INFURA_PROJECT_ID variable with your Infura project id.  Then you can run the example. 
+
+## Limitations
+Because this was designed to use with some class assignments, it is only setup to work with Infura.io and the Ropsten test network.  This could easily be changed however by editing SimpleWeb3py.py and modifying the SimpleWeb3's class __init__ to work with other providers and/or networks. 
 
 ## License
 Apache MIT
