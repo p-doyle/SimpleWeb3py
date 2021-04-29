@@ -414,7 +414,7 @@ def request_ether(to_address):
         else:
             pay_date = datetime.datetime.fromtimestamp(r.json()['paydate']/1000)
 
-        amount = Web3().toWei(r.json()['amount'], 'ether')
+        amount = Web3().fromWei(r.json()['amount'], 'ether')
         print(f'{amount} ETH was requested to be sent to {r.json()["address"]}! Estimated Payment Date: {pay_date}')
 
         if r.json().get('txhash'):
